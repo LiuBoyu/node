@@ -7,10 +7,10 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 更新Alpine镜像源
 #   阿里云VPC http://mirrors.cloud.aliyuncs.com （VPC内网高速免流量，用于云上自动构建）
 #   阿里云    http://mirrors.aliyun.com （公网，用于本地手工构建）
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
- && apk update && apk upgrade \
- && echo @edge http://mirrors.aliyun.com/alpine/edge/main >> /etc/apk/repositories \
- && echo @edge http://mirrors.aliyun.com/alpine/edge/community >> /etc/apk/repositories
+#   Alpine   http://nl.alpinelinux.org （公网，用于 DockerHub 构建）
+RUN apk update && apk upgrade \
+ && echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories \
+ && echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
 
 RUN apk add --no-cache chromium@edge nss@edge harfbuzz@edge \
  && rm -rf /var/cache/apk/*
